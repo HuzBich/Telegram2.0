@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(router);
 
 
-mongoose.connect('mongodb+srv://huzbich:2ockDImAQtk4zfcP@cluster0.dw9nkk3.mongodb.net/Xminters?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://huzbich:2ockDImAQtk4zfcP@cluster0.wy0w00g.mongodb.net/Messenger?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });

@@ -1,0 +1,30 @@
+.login-page {
+  text-align: center;
+  padding-top: 200px;
+  #username-input {
+    text-align: center;
+    border-radius: 27px;
+    border: 2px solid black;
+    height: 50px;
+    width: 250px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.7);
+
+    font-weight: 700;
+    font-size: 2em;
+  }
+  #username-input:focus {
+    outline: none;
+  }
+  #signin-button {
+    margin-top: 22px;
+    font-size: 18px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.7);
+
+    height: 50px;
+    width: 150px;
+    border-radius: 27px;
+    border: 2px solid black;
+  }
+}
