@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./Chats.scss"
 import Chatbox from "./Chatbox";
 import Sidebar from "./Sidebar";

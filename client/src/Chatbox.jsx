@@ -14,8 +14,9 @@ const Chatbox = (params) => {
     }
 
     useEffect(() => {
+        if (params.activeChat === '') return
         Api.getMessages(params.userName, params.activeChat).then(res => setMessages(res.data))
-    }, [])
+    }, [params.activeChat])
 
     return (
         <div id="chat-box">

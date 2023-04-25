@@ -1,11 +1,12 @@
 import React from 'react';
 import "./Login.scss"
+import Api from "./Api";
 
 const Login = (params) => {
     const submitHandler = () => {
         const input = document.getElementById('username-input')
         localStorage.setItem('userName', input.value);
-        params.setUserName(input.value)
+        Api.login(input.value).then(() => params.setUserName(input.value))
     }
 
     return (

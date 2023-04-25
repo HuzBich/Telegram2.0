@@ -3,6 +3,10 @@ import axios from 'axios';
 const API_URL = 'http://localhost:5000';
 
 class Api {
+    login(userName) {
+        return axios.post(API_URL + `/login`, {userName})
+    }
+
     getChats(userName) {
         return axios.get(API_URL + `/chats?userName=${userName}`)
     }

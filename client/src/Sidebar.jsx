@@ -24,12 +24,6 @@ const Sidebar = (params) => {
 
     const addFriend = (username, e) => {
         Api.addFriend(params.userName, username).then(loadChats)
-        const addedFriend = searchResults.find(user => user.name === username)
-        const newSearchResults = searchResults.filter(user => user.name !== username)
-        addedFriend.isFriend = true
-        newSearchResults.push(addedFriend)
-        newSearchResults.sort((a, b) => a.name.localeCompare(b.name))
-        setSearchResults(newSearchResults)
     }
 
     useEffect(loadChats, [])
@@ -48,18 +42,19 @@ const Sidebar = (params) => {
                     ?
                 searchResults.map((user, index) => <>
                     <div className="chat" key={index}>
-                        {user.name}
+                        {user}
                         {
-                            chats.find(chat => chat.username === user.name)
-                            &&
-                            <button onClick={addFriend.bind(null, user.name)}>Add</button>
+                            chats.find(chat => chat === user) ?
+                                <></>
+                                :
+                                <button onClick={addFriend.bind(null, user)}>Add</button>
                         }
                     </div>
                 </>)
                     :
                 chats.map((chat, index) => <>
-                    <div className="chat" key={index} onClick={e => params.setActiveChat(chat.username)}>
-                        {chat.username}
+                    <div className="chat" key={index} onClick={e => params.setActiveChat(chat)}>
+                        {chat}
                     </div>
                 </>)
             }</div>
