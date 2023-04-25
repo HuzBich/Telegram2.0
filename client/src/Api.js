@@ -14,6 +14,14 @@ class Api {
     addFriend(userName, friendName) {
         return axios.post(API_URL + `/addFriend`, {userName, friendName})
     }
+
+    sendMessage(userName, activeChat, messageText) {
+        return axios.post(API_URL + `/message`, {userName, activeChat, messageText})
+    }
+
+    getMessages(userName, activeChat) {
+        return axios.get(API_URL + `/messages?userName=${userName}&activeChat=${activeChat}`)
+    }
 }
 
 export default new Api();

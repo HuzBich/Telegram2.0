@@ -58,7 +58,7 @@ const Sidebar = (params) => {
                 </>)
                     :
                 chats.map((chat, index) => <>
-                    <div className="chat" key={index}>
+                    <div className="chat" key={index} onClick={e => params.setActiveChat(chat.username)}>
                         {chat.username}
                     </div>
                 </>)
