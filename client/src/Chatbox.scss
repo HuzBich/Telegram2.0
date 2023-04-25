@@ -1,4 +1,7 @@
+@import './variables.scss';
+
 #chat-box {
     width: auto;
     display: inline-block;
+    background-color: $primary-color;
 }
