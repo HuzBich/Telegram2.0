@@ -1,5 +1,6 @@
 const Chat = require('./models/ChatModel');
 const User = require('./models/UserModel');
+const websocketCollection = require('./websocketCollection')
 
 class Controller {
     async login(req, res) {
@@ -66,6 +67,10 @@ class Controller {
             }
             chat.messages.push({sender: userName, text: messageText});
             chat.save();
+            const userWs = websocketCollection.get(activeChat);
+            if (userWs !== undefined) {
+                userWs.send(JSON.stringify({sender: userName, text: messageText}));
+            }
             res.status(200).json({});
         } catch (e) {
             res.json({error: e.message}).status(500);

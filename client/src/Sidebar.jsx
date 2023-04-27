@@ -8,7 +8,7 @@ const Sidebar = (params) => {
     const [searchResults, setSearchResults] = useState([])
 
     const loadChats = () => {
-        Api.getChats(params.userName).then(res => setChats([...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,]))
+        Api.getChats(params.userName).then(res => setChats([...res.data]))
     }
 
     const searchHandler = (e) => {

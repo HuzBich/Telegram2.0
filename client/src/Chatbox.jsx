@@ -19,9 +19,20 @@ const Chatbox = (params) => {
         }
     }
 
+
+    useEffect(() => {
+        if (params.ws === null) return
+        params.ws.onmessage = (e) => {
+            const data = JSON.parse(e.data)
+            if (data.sender === params.activeChat) {
+                setMessages([...messages, data])
+            }
+        }
+    }, [params.ws, messages])
+
     useEffect(() => {
         if (params.activeChat === '') return
-        Api.getMessages(params.userName, params.activeChat).then(res => setMessages([...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,]))
+        Api.getMessages(params.userName, params.activeChat).then(res => setMessages([...res.data]))
     }, [params.activeChat])
 
     useEffect(() => {
