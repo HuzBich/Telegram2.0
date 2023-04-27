@@ -13,20 +13,38 @@ const Chatbox = (params) => {
         messageInput.current.value = ''
     }
 
+    const keyPressHandler = (e) => {
+        if (e.key === 'Enter') {
+            sendMessage()
+        }
+    }
+
     useEffect(() => {
         if (params.activeChat === '') return
-        Api.getMessages(params.userName, params.activeChat).then(res => setMessages(res.data))
+        Api.getMessages(params.userName, params.activeChat).then(res => setMessages([...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,]))
     }, [params.activeChat])
+
+    useEffect(() => {
+        const scrollable = document.getElementsByClassName("messages-container")[0]
+        scrollable.scrollTop = scrollable.scrollHeight;
+    }, [messages])
 
     return (
         <div id="chat-box">
+            <div className="messages-container">
+                {
+                    messages.map((message, index) => <div className="message">
+                        {message.sender}: {message.text}
+                    </div>)
+                }
+            </div>
             {
-                messages.map((message, index) => <div>
-                    {message.sender}: {message.text}
+                params.activeChat !== '' && (<div className="message-input-field">
+                    <input onKeyPress={keyPressHandler} ref={messageInput} type="text"/>
+                    <button onClick={sendMessage}>Send</button>
                 </div>)
             }
-            <input ref={messageInput} type="text"/>
-            <button onClick={sendMessage}>Send</button>
+
         </div>
     );
 };

@@ -9,7 +9,7 @@ const Chats = (params) => {
     return (
         <div className="content-block">
             <div className="centered-block">
-                <Sidebar userName={params.userName} setUserName={params.setUserName} setActiveChat={setActiveChat}/>
+                <Sidebar userName={params.userName} setUserName={params.setUserName} activeChat={activeChat} setActiveChat={setActiveChat}/>
                 <Chatbox userName={params.userName} activeChat={activeChat}/>
             </div>
         </div>

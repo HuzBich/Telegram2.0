@@ -8,7 +8,7 @@ const Sidebar = (params) => {
     const [searchResults, setSearchResults] = useState([])
 
     const loadChats = () => {
-        Api.getChats(params.userName).then(res => setChats(res.data))
+        Api.getChats(params.userName).then(res => setChats([...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,...res.data,]))
     }
 
     const searchHandler = (e) => {
@@ -40,24 +40,25 @@ const Sidebar = (params) => {
             <div className="chats">{
                 isSearching
                     ?
-                searchResults.map((user, index) => <>
-                    <div className="chat" key={index}>
-                        {user}
-                        {
-                            chats.find(chat => chat === user) ?
-                                <></>
-                                :
-                                <button onClick={addFriend.bind(null, user)}>Add</button>
-                        }
-                    </div>
-                </>)
+                    searchResults.map((user, index) => <>
+                        <div className="chat" key={index} onClick={e => params.setActiveChat(user)}>
+                            {user}
+                            {
+                                chats.find(chat => chat === user) ?
+                                    <></>
+                                    :
+                                    <button className="add-friend" onClick={addFriend.bind(null, user)}>+</button>
+                            }
+                        </div>
+                    </>)
                     :
-                chats.map((chat, index) => <>
-                    <div className="chat" key={index} onClick={e => params.setActiveChat(chat)}>
-                        {chat}
-                    </div>
-                </>)
+                    chats.map((chat, index) => <>
+                        <div className={"chat" + (params.activeChat === chat ? " active" : "")} key={index} onClick={e => params.setActiveChat(chat)}>
+                            {chat}
+                        </div>
+                    </>)
             }</div>
+
         </div>
     );
 };

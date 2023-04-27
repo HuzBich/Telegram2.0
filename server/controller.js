@@ -9,7 +9,7 @@ class Controller {
             if (!user) {
                 await User.create({username});
             }
-            res.status(200);
+            res.status(200).json({});
         } catch (e) {
             res.json({error: e.message}).status(500);
         }
@@ -41,17 +41,17 @@ class Controller {
             const user1 = await User.findOne({username: userName});
             const user2 = await User.findOne({username: friendName});
             if (!user1 || !user2) {
-                return res.status(400);
+                return res.status(400).json({error: 'User not found'});
             }
             if (user1.friends.includes(friendName) || user2.friends.includes(userName)) {
-                return res.status(400);
+                return res.status(400).json({error: 'You already friends'});
             }
             await Chat.create({users: [userName, friendName]});
             user1.friends.push(friendName);
             user2.friends.push(userName);
             user1.save();
             user2.save();
-            res.status(200);
+            res.status(200).json({});
         } catch (e) {
             res.json({error: e.message}).status(500);
         }
@@ -62,11 +62,11 @@ class Controller {
             const {userName, activeChat, messageText} = req.body;
             const chat = await Chat.findOne({users: { "$in" : [userName, activeChat]}});
             if (!chat) {
-                return res.status(400);
+                return res.status(400).json({error: 'Chat not found'});
             }
             chat.messages.push({sender: userName, text: messageText});
             chat.save();
-            res.status(200);
+            res.status(200).json({});
         } catch (e) {
             res.json({error: e.message}).status(500);
         }
@@ -75,7 +75,10 @@ class Controller {
     async getMessages(req, res) {
         try {
             const {userName, activeChat} = req.query;
-            const chat = await Chat.findOne({users: { "$in" : [userName, activeChat]}});
+            // find chat where in users array contains userName and activeChat
+            const chat = await Chat.findOne({users: { "$all" : [userName, activeChat]}});
+
+
             if (!chat) {
                 return res.status(400).json({error: 'Chat not found'});
             }

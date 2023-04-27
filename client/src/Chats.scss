@@ -1,13 +1,17 @@
 .content-block {
+    margin-top: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 90vh;
 }
+
 .centered-block {
-    margin-top: 100px;
     width: 70%;
+    height: 100%;
     border-radius: 15px;
     border: 2px solid #000;
+    display: flex;
 }
 
 
