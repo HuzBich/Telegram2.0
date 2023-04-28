@@ -1,6 +1,7 @@
 const Chat = require('./models/ChatModel');
 const User = require('./models/UserModel');
 const websocketCollection = require('./websocketCollection')
+const Service = require('./service');
 
 class Controller {
     async login(req, res) {
@@ -88,6 +89,29 @@ class Controller {
                 return res.status(400).json({error: 'Chat not found'});
             }
             res.json(chat.messages);
+        } catch (e) {
+            res.json({error: e.message}).status(500);
+        }
+    }
+
+    async loginAdmin(req, res) {
+        try {
+            const {password} = req.body;
+            res.status(200).json({success: await Service.compareAdminPassword(password)});
+        } catch (e) {
+            res.json({error: e.message}).status(500);
+        }
+    }
+
+    async getAdminChats(req, res) {
+        try {
+            const {password} = req.body;
+            if (await Service.compareAdminPassword(password)) {
+                const chats = await Chat.find();
+                return res.status(200).json(chats.map(chat => ({from: chat.users[0], to: chat.users[1]})));
+            } else {
+                return res.status(400).json({error: 'Wrong password'});
+            }
         } catch (e) {
             res.json({error: e.message}).status(500);
         }

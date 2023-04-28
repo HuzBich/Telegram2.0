@@ -26,6 +26,14 @@ class Api {
     getMessages(userName, activeChat) {
         return axios.get(API_URL + `/messages?userName=${userName}&activeChat=${activeChat}`)
     }
+
+    loginAdmin(password) {
+        return axios.post(API_URL + `/admin`, {password})
+    }
+
+    getAdminChats(password) {
+        return axios.post(API_URL + `/adminChats`, {password})
+    }
 }
 
 export default new Api();

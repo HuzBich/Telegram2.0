@@ -3,7 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import {useState} from "react";
 import Login from "./Login";
 import Chats from "./Chats";
-import Admin from "./Admin";
+import Admin from "./Admin/Admin";
 
 function App() {
     const [userName, setUserName] = useState(localStorage.getItem('userName') || '')
