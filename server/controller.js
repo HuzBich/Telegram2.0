@@ -62,7 +62,7 @@ class Controller {
     async sendMessage(req, res) {
         try {
             const {userName, activeChat, messageText} = req.body;
-            const chat = await Chat.findOne({users: { "$in" : [userName, activeChat]}});
+            const chat = await Chat.findOne({users: { "$all" : [userName, activeChat]}});
             if (!chat) {
                 return res.status(400).json({error: 'Chat not found'});
             }

@@ -9,7 +9,7 @@ const Chats = (params) => {
     const [ws, setWs] = useState(null)
 
     useEffect(() => {
-        const socket = new WebSocket('ws://localhost:5001');
+        const socket = new WebSocket('ws://18.183.103.182:5001');
 
         socket.onopen = () => {
             socket.send(JSON.stringify({type: 'connect', username: params.userName}))

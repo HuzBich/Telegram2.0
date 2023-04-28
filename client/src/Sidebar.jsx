@@ -17,12 +17,12 @@ const Sidebar = (params) => {
         } else {
             setIsSearching(true)
             Api.searchUsers(e.target.value).then(res => {
-                setSearchResults(res.data)
+                setSearchResults(res.data.filter(user => user !== params.userName))
             })
         }
     }
 
-    const addFriend = (username, e) => {
+    const addFriend = (username) => {
         Api.addFriend(params.userName, username).then(loadChats)
     }
 
@@ -41,13 +41,15 @@ const Sidebar = (params) => {
                 isSearching
                     ?
                     searchResults.map((user, index) => <>
-                        <div className="chat" key={index} onClick={e => params.setActiveChat(user)}>
+                        <div className={"chat" + (params.activeChat === user ? " active" : "")} key={index}
+                             onClick={e => {if (chats.includes(user)) params.setActiveChat(user)}}
+                        >
                             {user}
                             {
                                 chats.find(chat => chat === user) ?
                                     <></>
                                     :
-                                    <button className="add-friend" onClick={addFriend.bind(null, user)}>+</button>
+                                    <button className="add-friend" onClick={() => {setChats([...chats, user]); addFriend(user)}}>+</button>
                             }
                         </div>
                     </>)
